@@ -87,11 +87,6 @@ pip install -r requirements.txt
 ```bash
 python src/training/train_sft.py
 ```
-
-## Run Supervised Fine-Tuning (QLoRA)
-```bash
-python src/training/train_sft.py
-```
 This trains Qwen3-1.7B with LoRA adapters in 4-bit quantization and saves the model to:
 ```bash
 output/qwen3-1.7b-sft-huatuo/
