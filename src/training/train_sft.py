@@ -1,4 +1,3 @@
-import torch
 from bitsandbytes.optim import Adam8bit
 from transformers import TrainingArguments, Trainer
 
@@ -10,7 +9,7 @@ from src.models.models import (
 from src.data.data_utils import load_sft_train_val
 from src.data.collators import collate_fn_sft
 from src.models.plotting import plot_loss_curve
-from src.config.config import SFT_OUTPUT_DIR, DEVICE
+from src.config.config import SFT_OUTPUT_DIR
 
 tokenizer = get_tokenizer()
 ds_train, ds_val = load_sft_train_val(tokenizer)
