@@ -10,9 +10,9 @@ from src.config.config import BASE_MODEL_NAME, DEVICE
 
 # load origninal model
 tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL_NAME, trust_remote_code=True)
-    tokenizer.padding_side = "left"
-    if tokenizer.pad_token is None:
-        tokenizer.pad_token = tokenizer.eos_token
+tokenizer.padding_side = "left"
+if tokenizer.pad_token is None:
+    tokenizer.pad_token = tokenizer.eos_token
       
 bnb_config = BitsAndBytesConfig(
     load_in_4bit=True,
@@ -46,7 +46,7 @@ model_original.config.pad_token_id = tokenizer.pad_token_id
 model_original.base_model.config.pad_token_id = tokenizer.pad_token_id
 
 ds_test, questions, questions_text, references_text = load_sft_test(tokenizer)
-dataloader = DataLoader(questions, batch_size=16, collate_fn=lambda batch: collate_fn_leftpad(batch, tokenizer.pad_token_id)
+dataloader = DataLoader(questions, batch_size=16, collate_fn=lambda batch: collate_fn_leftpad(batch, tokenizer.pad_token_id))
 
 predictions_text = []
 
