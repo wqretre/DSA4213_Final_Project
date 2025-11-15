@@ -6,7 +6,7 @@ This repository contains code for:
 - **RAG (Retrieval-Augmented Generation)** with medical chain-of-thought prompting
 
 The project evaluates:
-- **Baseline Qwen3**
+- **Baseline Qwen3-1.7B**
 - **Fine-tuned QLoRA model**
 - **RAG-enhanced model**
 
