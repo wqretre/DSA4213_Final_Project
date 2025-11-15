@@ -63,8 +63,8 @@ DSA4213_Final_Project/
 
 | Item | Description |
 |------|--------------|
-| **Dataset (SFT)** | Huatuo-Encyclopedia-QA |
-| **Dataset (RAG)** | Huatuo26M-Lite |
+| **Dataset (SFT)** | [Huatuo-Encyclopedia-QA](https://huggingface.co/datasets/FreedomIntelligence/huatuo_encyclopedia_qa) |
+| **Dataset (RAG)** | [Huatuo26M-Lite](https://huggingface.co/datasets/FreedomIntelligence/Huatuo26M-Lite) |
 | **Model** | Qwen/Qwen3-1.7B |
 | **Finetuning** | QLoRA (4-bit NF4) |
 | **Retrieval** | BM25 + BGE-large-zh-v1.5 |
