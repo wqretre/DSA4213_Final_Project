@@ -2,6 +2,7 @@ import os
 import numpy as np
 import evaluate
 
+
 # evaluation metrics
 def eval_generation(preds, refs, lang="zh", use_bleurt=True):
     assert len(preds) == len(refs)
@@ -34,4 +35,3 @@ def eval_generation(preds, refs, lang="zh", use_bleurt=True):
         "BLEURT": bleurt_score,
         "Final_Score": final_score
     }
-  
