@@ -88,13 +88,13 @@ pip install -r requirements.txt
 ```bash
 python -m src.training.train_sft
 ```
-This trains Qwen3-1.7B with LoRA adapters in 4-bit quantization and saves the model to:
+This trains **Qwen3-1.7B** with LoRA adapters in 4-bit quantization and saves the model to:
 ```bash
 output/qwen3-1.7b-sft-huatuo/
 ```
 
 ## Evaluate Finetuned Model
-### Baseline
+### Baseline (Original model)
 ```bash
 python -m src.evaluation.eval_sft_baseline
 ```
@@ -102,13 +102,36 @@ python -m src.evaluation.eval_sft_baseline
 ```bash
 python -m src.evaluation.eval_sft_finetune
 ```
+This project evaluates model performance using:
+
+- **BERTScore-F1** — semantic similarity between predicted and reference answers  
+- **BLEURT-20** — learned metric for factual correctness and coherence  
+- **Final Combined Score** — weighted fusion of BERTScore and BLEURT  
+
+Finetuning (QLoRA) consistently improves **fluency, completeness, and factual accuracy** compared to the baseline model.
 
 ## Build and Evaluate Hybrid Retriever
 ```bash
 python -m src.retriever.build_retriever
 ```
 
-## Build and Evaluate Hybrid Retriever
+This project evaluates model performance using:
+
+- **Hit Rate**  
+- **MRR (Mean Reciprocal Rank)**
+
+This helps quantify how well the retriever can find the correct medical passage.
+
+## Run RAG Evaluation (Hybrid Retrieval + Medical CoT Prompt)
 ```bash
 python -m src.evaluation.rag_eval
 ```
+he RAG evaluation pipeline performs the following steps:
+
+1. **Loads the hybrid retriever** (BM25 + BGE embeddings) to retrieve relevant medical knowledge.
+2. **Loads the fine-tuned QLoRA model** for generation under low-memory 4-bit quantization.
+3. **Applies a Medical Chain-of-Thought prompt**, guiding the model to reason before answering.
+4. **Generates answers in batch**, enabling efficient large-scale evaluation.
+5. **Evaluates predictions** using BERTScore and BLEURT.
+
+This RAG setup typically provides improvements in accuracy, factual correctness, and response consistency by grounding model outputs in retrieved evidence.
