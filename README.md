@@ -86,7 +86,7 @@ pip install -r requirements.txt
 
 ## Run Supervised Fine-Tuning (QLoRA)
 ```bash
-python src/training/train_sft.py
+python -m src.training.train_sft
 ```
 This trains Qwen3-1.7B with LoRA adapters in 4-bit quantization and saves the model to:
 ```bash
@@ -96,19 +96,19 @@ output/qwen3-1.7b-sft-huatuo/
 ## Evaluate Finetuned Model
 ### Baseline
 ```bash
-python src/evaluation/eval_sft_baseline.py
+python -m src.evaluation.eval_sft_baseline
 ```
 ### Fine-tuned QLoRA model
 ```bash
-python src/evaluation/eval_sft_finetune.py
+python -m src.evaluation.eval_sft_finetune
 ```
 
 ## Build and Evaluate Hybrid Retriever
 ```bash
-python src/retriever/build_retriever.py
+python -m src.retriever.build_retriever
 ```
 
 ## Build and Evaluate Hybrid Retriever
 ```bash
-python src/evaluation/rag_eval.py
+python -m src.evaluation.rag_eval
 ```
