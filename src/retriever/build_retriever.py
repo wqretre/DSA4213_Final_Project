@@ -24,7 +24,7 @@ def load_docs(limit=5000):
             content = a
             load_docs.append(content)
             docs.append(Document(page_content=content))
-        if i >= 5000:
+        if i >= limit:
             break
     return docs, load_docs, load_dict
 
@@ -39,8 +39,8 @@ def build_hybrid_retriever(docs, load_docs):
     BM25.k = 3
     BGE_vectorstore = vectorstore
     BGE = BGE_vectorstore.as_retriever(search_kwargs={"k": 3})
-    hybird = EnsembleRetriever(retrievers=[BM25, BGE], weights=[0.5, 0.5])
-    return hybird
+    hybrid = EnsembleRetriever(retrievers=[BM25, BGE], weights=[0.5, 0.5])
+    return hybrid
 
 
 def evaluate_retriever(hybrid, load_dict):
