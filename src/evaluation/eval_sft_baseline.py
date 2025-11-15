@@ -2,6 +2,8 @@ import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
+
 
 from src.data.data_utils import load_sft_test
 from src.data.collators import collate_fn_leftpad
@@ -42,8 +44,8 @@ model = get_peft_model(model, lora_cfg)
 
 model.eval()
 predictions_text = []
-model_original.config.pad_token_id = tokenizer.pad_token_id
-model_original.base_model.config.pad_token_id = tokenizer.pad_token_id
+model.config.pad_token_id = tokenizer.pad_token_id
+model.base_model.config.pad_token_id = tokenizer.pad_token_id
 
 ds_test, questions, questions_text, references_text = load_sft_test(tokenizer)
 dataloader = DataLoader(questions, batch_size=16, collate_fn=lambda batch: collate_fn_leftpad(batch, tokenizer.pad_token_id))
@@ -55,7 +57,7 @@ for batch, attention_mask in tqdm(dataloader, desc="Generating (original model)"
     attention_mask = attention_mask.to(DEVICE)
 
     with torch.no_grad():
-        outputs = model_original.generate(
+        outputs = model.generate(
             input_ids=batch,
             attention_mask=attention_mask,
             max_new_tokens=512,
@@ -66,7 +68,7 @@ for batch, attention_mask in tqdm(dataloader, desc="Generating (original model)"
         )
 
     decoded = tokenizer.batch_decode(outputs, skip_special_tokens=True)
-    predictions_text_original.extend(decoded)
+    predictions_text.extend(decoded)
 
 torch.cuda.empty_cache()
 
