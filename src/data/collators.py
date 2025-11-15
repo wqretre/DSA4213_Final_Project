@@ -2,7 +2,7 @@ import torch
 
 
 # pad inputs_id and lebels to the same length
-def collate_fn(batch, pad_id):
+def collate_fn_sft(batch, pad_id):
     input_ids = [torch.tensor(x["input_ids"]) for x in batch]
     labels = [torch.tensor(x["labels"]) for x in batch]
     input_ids = torch.nn.utils.rnn.pad_sequence(input_ids, batch_first=True, padding_value=pad_id)
