@@ -1,5 +1,6 @@
 from src.config.config import MAX_LEN
 
+
 def tokenize_function(ex, tokenizer, max_len=MAX_LEN):
     inp = ex["input"].strip()
     out = ex["output"].strip()
