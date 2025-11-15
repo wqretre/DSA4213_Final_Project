@@ -40,11 +40,11 @@ trainer = Trainer(
     model=model,
     args=training_args,
     train_dataset=ds_train,
-    data_collator=collate_fn_sft,
+    data_collator=lambda batch: collate_fn_sft(batch, tokenizer.pad_token_id),
     optimizers=(optimizer, None)
 )
   
 trainer.train()
 trainer.save_model(SFT_OUTPUT_DIR)
-  plot_loss_curve(trainer)
+plot_loss_curve(trainer)
 
