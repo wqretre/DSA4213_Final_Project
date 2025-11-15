@@ -75,7 +75,7 @@ DSA4213_Final_Project/
 
 ### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/wqretre/DSA4213_Assignment3_A0327221R.git
+git clone https://github.com/wqretre/DSA4213_Final_Project.git
 ```
 ### 2️⃣ Install dependencies
 
