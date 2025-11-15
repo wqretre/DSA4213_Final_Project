@@ -1,9 +1,9 @@
-from datasets import load_dataset
-from tqdm import tqdm
+from datasets import Dataset
 
 from src.retriever.rag_chain import build_rag_chain
 from src.evaluation.metrics import eval_generation
 from src.data.data_utils import load_sft_test
+
 
 def generate_batch(generator, batch):
     outputs = generator(batch["question"], max_new_tokens=512, batch_size=8)
@@ -14,9 +14,10 @@ def generate_batch(generator, batch):
             text = text.split("答案：")[-1].split("问题")[0]
         preds.append(text)
     return {"prediction": preds}
-  
+
+
 qa_chain = build_rag_chain(limit_docs=5000)
-generator = qa_chain.llm.pipeline     
+generator = qa_chain.llm.pipeline
 tokenizer = generator.tokenizer
 
 _, _, questions_text, references_text = load_sft_test(tokenizer)
