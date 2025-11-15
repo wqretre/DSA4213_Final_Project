@@ -36,7 +36,6 @@ DSA4213_Final_Project/
     ├── models/
     │   ├── __init__.py
     │   ├── models.py                # base model loader + 4bit config
-    │   ├── inference.py             # model loading for inference (SFT & baseline)
     │   └── plotting.py              # training loss plotting
     │
     ├── training/
